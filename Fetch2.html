@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="ds:/Sys/app.js"></script>
+    <title>WebAssembly Example</title>
+</head>
+<body>
+    <h1>WebAssembly Example</h1>
+    <script>
+        async function loadWasm() {
+            // Fetch the WebAssembly module
+            const response = await fetch('./add.wasm.txt');
+            const bytes = await response.arrayBuffer();
+            const module = await WebAssembly.instantiate(bytes);
+            
+            // Call the exported function
+            const result = module.instance.exports.add(5, 7);
+            console.log(`Result of adding 5 and 7: ${result}`);
+        }
+
+        loadWasm();
+    </script>
+</body>
+</html>
